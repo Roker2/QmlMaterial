@@ -250,6 +250,11 @@ if(EMSCRIPTEN)
   add_link_options("-sEXPORT_NAME=qml_material" -s FULL_ES3=1 -flto)
 endif()
 
+if(WIN32)
+  list(APPEND SOURCES src/win/win.cpp)
+  list(APPEND SHADER_DEFINES "GLES=1")
+endif()
+
 set_source_files_properties(
   qml/Token.qml
   PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
