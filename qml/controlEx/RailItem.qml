@@ -120,6 +120,7 @@ T.Button {
             font.capitalization: Font.Capitalize
             text: control.text
             prominent: control.checked
+            color: control.mdState.textColor
         }
     }
 
