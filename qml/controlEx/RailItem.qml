@@ -9,6 +9,9 @@ T.Button {
     property int iconStyle: hasIcon ? MD.Enum.IconAndText : MD.Enum.TextOnly
     readonly property bool hasIcon: MD.Util.hasIcon(icon)
     property alias mdState: m_sh.state
+    property int big_width: 360
+    property int small_width: 80
+    property int delta: 24
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
@@ -31,7 +34,7 @@ T.Button {
     property bool expand: width > 80
     property int lineHeight: MD.Token.typescale.label_large.line_height
     property Item trailing: null
-    readonly property real range: (control.width - (56 + 24)) / (336 - 56)
+    readonly property real range: (control.width - control.small_width) / (control.big_width - control.small_width)
 
     contentItem: Item {
         implicitHeight: m_content_main.implicitHeight + (control.expand ? 0 : m_text.implicitHeight)
@@ -49,7 +52,7 @@ T.Button {
             contentItem: Row {
                 Item {
                     height: 2
-                    width: (56 + 24 - control.icon.width) / 2
+                    width: (control.small_width - control.icon.width) / 2
                 }
                 MD.Icon {
                     anchors.verticalCenter: parent.verticalCenter
@@ -65,8 +68,8 @@ T.Button {
 
             background: Item {
                 id: m_background
-                implicitWidth: control.expand ? 336 : 56
-                implicitHeight: control.expand ? 56 : 32
+                implicitWidth: control.expand ? control.big_width - control.delta : control.small_width - control.delta
+                implicitHeight: control.expand ? control.small_width - control.delta : control.small_width - control.delta - control.delta
 
                 MD.ElevationRectangle {
                     x: 0
@@ -96,8 +99,8 @@ T.Button {
         MD.Text {
             id: m_text
             x: {
-                const min = ((56 + 24) - width) / 2;
-                const max = ((56 + 24 + control.icon.width) / 2 + 12);
+                const min = (control.small_width - width) / 2;
+                const max = ((control.small_width + control.icon.width) / 2 + 12);
                 return min + (max - min) * control.range;
             }
             y: {
