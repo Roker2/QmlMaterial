@@ -100,7 +100,7 @@ T.Button {
             id: m_text
             x: {
                 const min = (control.small_width - width) / 2;
-                const max = ((control.small_width + control.icon.width) / 2 + 12);
+                const max = (control.small_width + control.icon.width) / 2 + 12;
                 return min + (max - min) * control.range;
             }
             y: {
